@@ -12,6 +12,11 @@ public abstract class abProduct implements Payable {
 
     private static Long counter = 1L;
     private static Map<Integer, String> staticCategories = new HashMap<>();
+    private OrderStatus orderStatus = OrderStatus.NEW;
+
+    public void setOrderStatus(OrderStatus status) { this.orderStatus = status; }
+    public OrderStatus getOrderStatus() { return orderStatus; }
+
 
     static {
         staticCategories.put(1, "Бытовая техника");

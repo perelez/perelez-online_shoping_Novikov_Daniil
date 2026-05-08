@@ -2,10 +2,12 @@ public class Client implements Financeable {
 
     private String name;
     private double balance;
+    private ClientStatus status;
 
-    public Client(String name, double balance) {
+    public Client(String name, double balance, ClientStatus status) {
         this.name = name;
         this.balance = balance;
+        this.status = status;
     }
 
     public void payForProduct(abProduct product) {
@@ -24,13 +26,16 @@ public class Client implements Financeable {
 
     public double getBalance() { return balance; }
 
+    public ClientStatus getStatus() { return status; }
+
     @Override
     public boolean checkBalance(double amount) {
         return balance >= amount;
     }
 
-    @Override
+   @Override
     public String getFinancialStatus() {
-        return "Баланс: " + balance;
+        return "Клиент: " + name + ", Статус: " + status.getLabel() + ", Баланс: " + balance;
     }
+
 }
