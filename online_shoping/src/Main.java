@@ -1,3 +1,6 @@
+// сингл тон , di 
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,8 +21,7 @@ public class Main {
 
         System.out.println("   добавление аксессуаров в товар  ");
         System.out.println("Базовая цена ноутбука: " + laptop.getPrice());
-        laptop.addItem(mouse);
-        laptop.addItem(pad);
+      
         System.out.println("цена ноутбука с аксессуарами: " + laptop.getFinalPrice());
 
         System.out.println("сравнение объектов");

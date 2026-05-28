@@ -3,7 +3,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class abProduct implements Payable {
-
     private final Long id;
     private String title;
     private double price;
@@ -13,10 +12,6 @@ public abstract class abProduct implements Payable {
     private static Long counter = 1L;
     private static Map<Integer, String> staticCategories = new HashMap<>();
     private OrderStatus orderStatus = OrderStatus.NEW;
-
-    public void setOrderStatus(OrderStatus status) { this.orderStatus = status; }
-    public OrderStatus getOrderStatus() { return orderStatus; }
-
 
     static {
         staticCategories.put(1, "Бытовая техника");
@@ -33,12 +28,8 @@ public abstract class abProduct implements Payable {
         this.paid = false;
     }
 
-    private Long generateId() {
+    private synchronized Long generateId() {
         return counter++;
-    }
-
-    private double calculatePrice() {
-        return price;
     }
 
     public abstract String getProductType();
@@ -46,27 +37,32 @@ public abstract class abProduct implements Payable {
     public Long getId() { return id; }
     public String getTitle() { return title; }
     public double getPrice() { return price; }
+    public void setOrderStatus(OrderStatus status) { this.orderStatus = status; }
+    public OrderStatus getOrderStatus() { return orderStatus; }
+    
     public static Map<Integer, String> getStaticCategories() {
         return staticCategories;
     }
 
-
     @Override
     public double getFinalPrice() {
-        return calculatePrice();
+        return price;
     }
 
     @Override
     public void pay(double amount) {
         if (amount >= getFinalPrice()) {
-            paid = true;
+            this.paid = true;
+            this.orderStatus = OrderStatus.PAID;
         }
     }
 
+    @Override
+    public boolean isPaid() { return paid; }
 
     @Override
     public String toString() {
-        return "id=" + id + ", title=" + title + ", price=" + price + ", paid=" + paid;
+        return "[" + getProductType() + "] ID=" + id + ", '" + title + "', Цена=" + price + " руб, Оплачен=" + paid + ", Статус=" + orderStatus.getLabel();
     }
 
     @Override
@@ -76,13 +72,10 @@ public abstract class abProduct implements Payable {
         abProduct p = (abProduct) o;
         return Objects.equals(id, p.id);
     }
-    @Override
-    public boolean isPaid() {
-        return paid;
-    }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
 }
+

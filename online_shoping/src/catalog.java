@@ -9,11 +9,16 @@ public class catalog {
     }
 
     public void showCatalog() {
-        System.out.println("     CATALOG    ");
+        System.out.println("========== КАТАЛОГ МAГАЗИНА ==========");
         for (Category cat : categories) {
             System.out.println(cat);
+            for (abProduct item : cat.getItems()) {
+                System.out.println("  -> " + item);
+            }
         }
-        System.out.println("Categories: " + Category.getCategoryCount());
-        System.out.println("Subcategories: " + Category.getSubcategoryCount());
+        System.out.println("======================================");
+        System.out.println("Всего категорий: " + Category.getCategoryCount());
+        System.out.println("Всего подкатегорий: " + Category.getSubcategoryCount());
+        System.out.println("======================================\n");
     }
 }

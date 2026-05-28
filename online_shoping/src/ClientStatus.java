@@ -1,5 +1,5 @@
 public enum ClientStatus {
-    NEWBIE("Новичок", 0), 
+    NEWBIE("Новичок", 0.0), 
     REGULAR("Постоянный", 0.05), // 5% скидка
     VIP("VIP-клиент", 0.15);      // 15% скидка
 

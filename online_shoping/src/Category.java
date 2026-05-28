@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Category {
     private String name;
     private List<String> subcategories;
-    private List<abProduct> items; // Список товаров для расчета цены
+    private List<abProduct> items;
 
     private static int categoryCount = 0;
     private static int subcategoryCount = 0;
@@ -14,7 +14,7 @@ public class Category {
         this.name = name;
         this.subcategories = new ArrayList<>();
         this.items = new ArrayList<>();
-        categoryCount++; // Увеличиваем счетчик при создании новой категории
+        categoryCount++;
     }
 
     public void addSubcategory(String subcategory) {
@@ -24,9 +24,9 @@ public class Category {
         }
     }
 
-    public void addItem(abProduct abProduct) {
-        if (abProduct != null) {
-            items.add(abProduct);
+    public void addItem(abProduct item) {
+        if (item != null) {
+            items.add(item);
         }
     }
 
@@ -39,24 +39,15 @@ public class Category {
     }
 
     public String getName() { return name; }
+    public List<abProduct> getItems() { return items; }
     public List<String> getSubcategories() { return subcategories; }
 
-    public static int getCategoryCount() {
-        return categoryCount;
-    }
-
-    public static int getSubcategoryCount() {
-        return subcategoryCount;
-    }
+    public static int getCategoryCount() { return categoryCount; }
+    public static int getSubcategoryCount() { return subcategoryCount; }
 
     @Override
     public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                ", subcategories=" + subcategories +
-                ", itemsInStock=" + items.size() +
-                ", totalCategoryPrice=" + getFinalPrice() +
-                '}';
+        return "Категория: '" + name + "' | Подкатегории: " + subcategories + " | Товаров: " + items.size() + " | Сумма: " + getFinalPrice() + " руб.";
     }
 
     @Override
@@ -73,3 +64,4 @@ public class Category {
         return name.hashCode();
     }
 }
+
